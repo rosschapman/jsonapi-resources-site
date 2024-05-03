@@ -41,13 +41,13 @@ Then bundle
 bundle
 ```
 
-### Application Controller 
+### Application Controller
 Make the following changes to application_controller.rb
 
 ```ruby
 class ApplicationController < ActionController::Base
   include JSONAPI::ActsAsResourceController
-  
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
@@ -86,7 +86,7 @@ necessary, but it makes for nicer output when debugging using curl or a client l
 
 ### CORS - optional
 
-You might run into CORS issues when accessing from the browser. You can use the `rack-cors` gem to allow sharing across 
+You might run into CORS issues when accessing from the browser. You can use the `rack-cors` gem to allow sharing across
 origins. See [https://github.com/cyu/rack-cors](https://github.com/cyu/rack-cors) for more details.
 
 Add the gem to your Gemfile
@@ -337,7 +337,7 @@ contacts = []
   contacts << Contact.create({
                                name_first: Faker::Name.first_name,
                                name_last: Faker::Name.last_name,
-                               email: Faker::Internet.safe_email,
+                               email: Faker::Internet.email,
                                twitter: "@#{Faker::Internet.user_name}"
                              })
 end
@@ -398,7 +398,7 @@ JSONAPI.configure do |config|
   config.resource_cache = Rails.cache
   # The following option works in versions v0.10 and later
   #config.default_caching = true
- end 
+ end
 ```
 
 If using an earlier version than v0.10.x we need to enable caching for each resource type we want the system to cache. Add the following line to the `contacts` ressource:
@@ -429,7 +429,7 @@ JSONAPI.configure do |config|
   config.default_paginator = :paged # default is :none
 
   config.default_page_size = 50 # default is 10
-  config.maximum_page_size = 100 # default is 20 
+  config.maximum_page_size = 100 # default is 20
 end
 ```
 
@@ -457,4 +457,4 @@ This will allow your client to iterate over the `next` links to fetch the full r
 
 The `default_page_size` setting is used if the request does not specify a size, and the `maximum_page_size` is used to limit the size the client may request.
 
-*Note:* The default page sizes are very conservative. There is significant overhead in making many small requests, and tuning the page sizes should be considered essential. 
+*Note:* The default page sizes are very conservative. There is significant overhead in making many small requests, and tuning the page sizes should be considered essential.
